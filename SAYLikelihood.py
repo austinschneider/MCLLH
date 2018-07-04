@@ -43,7 +43,7 @@ def poissonLikelihood(k, weight_sum, weight_sq_sum):
         The log likelihood
     """
 
-    return sp.stats.poisson.pmf(k, weight_sum)
+    return sp.stats.poisson.logpmf(k, weight_sum)
 
 def SAYMMSELLH(k, weight_sum, weight_sq_sum):
     """Computes Log of the SAY Likelihood using Minimum Mean Squared Estimator (MMSE)
