@@ -1,6 +1,6 @@
 # SAYLikelihood
 
-![SAYLLHLogo](/resources/logo/SAYLLHLogo.png)
+![SAYLLHLogo](/resources/logo/SAYLLHLogo.png|width=100)
 
 Citation
 --------
