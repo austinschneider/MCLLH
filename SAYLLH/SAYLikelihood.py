@@ -115,5 +115,5 @@ def SAYMAPLLH(k, weight_sum, weight_sq_sum):
 
     beta = (mu + np.sqrt(mu2 + sigma2*4.0))/(sigma2*2.0)
     alpha = (mu*np.sqrt(mu2 + sigma2*4.0)/sigma2 + mu2/sigma2 + 2.0)/2.0
-    L = gammaPriorPoisson(k, alpha, beta)
+    L = gammaPriorPoissonLikelihood(k, alpha, beta)
     return L
