@@ -1,11 +1,11 @@
-// Library for computing the SAY likelihood
+// Library for computing the likelihoods defined in arXiv:XXXX.XXXX
 
 #include <cmath>
 #include <vector>
 #include <numeric>
 #include <sstream>
 
-namespace SAY {
+namespace MCLLH {
 namespace detail {
 
 template <class InIt>
@@ -81,7 +81,7 @@ struct gammaPriorPoissonLikelihood {
 	}
 };
 
-struct SAYMeanLikelihood {
+struct LMean {
     template<typename T>
     T operator()(double k, T const & w_sum, T const & w2_sum) const {
         if(w_sum <= 0 || w2_sum < 0) {
@@ -111,7 +111,7 @@ struct SAYMeanLikelihood {
     }
 };
 
-struct SAYModeLikelihood {
+struct LMode {
 	template<typename T>
 	T operator()(double k, T const & w_sum, T const & w2_sum) const {
 		if(w_sum <= 0 || w2_sum < 0) {
@@ -145,7 +145,7 @@ struct SAYModeLikelihood {
 	}
 };
 
-struct SAYUninformedLikelihood {
+struct LEff {
     template<typename T>
     T operator()(double k, T const & w_sum, T const & w2_sum) const {
         if(w_sum <= 0 || w2_sum < 0) {
