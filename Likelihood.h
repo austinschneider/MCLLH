@@ -187,29 +187,4 @@ DataType get_mu2(std::vector<DataType> const & wi) {
     return detail::accumulate(w2i.begin(), w2i.end());
 };
 
-struct chi2Likelihood {
-    template<typename T>
-    T operator()(unsigned int k, const std::vector<T>& wi) const{
-        T mu = detail::get_mu(wi);
-        if(mu > 0){
-            T diff = mu - k;
-            return -(diff * diff) / mu / 2;
-        }
-        return(0.0);
-    }
-};
-
-struct pearsonChi2Likelihood {
-    template<typename T>
-    T operator()(unsigned int k, const std::vector<T>& wi) const{
-        T mu = detail::get_mu(wi);
-        T mu2 = detail::get_mu2(wi);
-        if(mu > 0){
-            T diff = mu - k;
-            return -(diff * diff) / (mu + mu2) / 2;
-        }
-        return(0.0);
-    }
-};
-
 } // namespace SAY
