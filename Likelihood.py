@@ -51,7 +51,7 @@ def poissonLikelihood(k, weight_sum, weight_sq_sum):
 
     return sp.stats.poisson.logpmf(k, weight_sum)
 
-def L_Mean(k, weight_sum, weight_sq_sum):
+def LMean(k, weight_sum, weight_sq_sum):
     """Computes Log of the L_Mean Likelihood.
        This is the poisson likelihood with gamma distribution prior where the
        mean and variance are fixed to that of the weight distribution.
@@ -87,7 +87,7 @@ def L_Mean(k, weight_sum, weight_sq_sum):
     L = gammaPriorPoissonLikelihood(k, alpha, beta)
     return L
 
-def L_mode(k, weight_sum, weight_sq_sum):
+def LMode(k, weight_sum, weight_sq_sum):
     """Computes Log of the L_Mode Likelihood.
        This is the poisson likelihood with gamma distribution prior where the
        mode and variance are fixed to that of the weight distribution.
@@ -128,7 +128,7 @@ def L_mode(k, weight_sum, weight_sq_sum):
     L = gammaPriorPoissonLikelihood(k, alpha, beta)
     return L
 
-def L_Eff(k, weight_sum, weight_sq_sum):
+def LEff(k, weight_sum, weight_sq_sum):
     """Computes Log of the L_Eff Likelihood.
        This is the poisson likelihood, using a poisson distribution with
        rescaled rate parameter to describe the Monte Carlo expectation, and
@@ -165,4 +165,72 @@ def L_Eff(k, weight_sum, weight_sq_sum):
     beta = weight_sum / weight_sq_sum
     L = gammaPriorPoissonLikelihood(k, alpha, beta)
     return L
+
+def computeLMean(weights):
+    """Computes Log of the L_Mean Likelihood from a list of weights.
+       This is the poisson likelihood with gamma distribution prior where the
+       mean and variance are fixed to that of the weight distribution.
+
+    Parameters
+    ----------
+    k : int
+        the number of observed events
+    weights : [float]
+        the list of the weighted MC events
+
+    Returns
+    -------
+    float
+        The log likelihood
+    """
+    w = np.asarray(weights)
+    weight_sum = np.sum(w)
+    weight_sq_sum = np.sum(w*w)
+    return LMean(weight_sum, weight_sq_sum)
+
+def computeLMode(weights):
+    """Computes Log of the L_Mode Likelihood from a list of weights.
+       This is the poisson likelihood with gamma distribution prior where the
+       mode and variance are fixed to that of the weight distribution.
+
+    Parameters
+    ----------
+    k : int
+        the number of observed events
+    weights : [float]
+        the list of the weighted MC events
+
+    Returns
+    -------
+    float
+        The log likelihood
+    """
+    w = np.asarray(weights)
+    weight_sum = np.sum(w)
+    weight_sq_sum = np.sum(w*w)
+    return LMode(weight_sum, weight_sq_sum)
+
+def computeLEff(weights):
+    """Computes Log of the L_Eff Likelihood from a list of weights.
+       This is the poisson likelihood, using a poisson distribution with
+       rescaled rate parameter to describe the Monte Carlo expectation, and
+       assuming a uniform prior on the rate parameter of the Monte Carlo.
+       This is the main result of the paper arXiv:XXXX.XXXX
+
+    Parameters
+    ----------
+    k : int
+        the number of observed events
+    weights : [float]
+        the list of the weighted MC events
+
+    Returns
+    -------
+    float
+        The log likelihood
+    """
+    w = np.asarray(weights)
+    weight_sum = np.sum(w)
+    weight_sq_sum = np.sum(w*w)
+    return LEff(weight_sum, weight_sq_sum)
 
