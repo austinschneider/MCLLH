@@ -4,8 +4,6 @@
 #include <vector>
 #include <numeric>
 #include <sstream>
-#include <pybind11/pybind11.h>
-#include <pybind11/stl.h>
 
 namespace SAY {
 namespace detail {
@@ -213,17 +211,5 @@ struct pearsonChi2Likelihood {
 };
 
 } // namespace detail
-
-double Chi2Likelihood(double k, std::vector<double> const & wi);
-
-double PearsonChi2Likelihood(double k, std::vector<double> const & wi);
-
-double PoissonLikelihood(double k, std::vector<double> const & wi);
-
-double SAYMeanLikelihood(double k, std::vector<double> const & wi);
-
-double SAYModeLikelihood(double k, std::vector<double> const & wi);
-
-double SAYUninformedLikelihood(double k, std::vector<double> const & wi);
 
 } // namespace SAY
