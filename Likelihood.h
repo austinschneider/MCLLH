@@ -1,4 +1,4 @@
-// Library for computing the likelihoods defined in arXiv:XXXX.XXXX
+// Implementations of the likelihoods defined in arXiv:XXXX.XXXX
 
 #include <cmath>
 #include <vector>
@@ -8,6 +8,7 @@
 namespace MCLLH {
 namespace detail {
 
+// compute the sum using the Kahan summation algorithm
 template <class InIt>
 typename std::iterator_traits<InIt>::value_type accumulate(InIt begin, InIt end) {
 	typedef typename std::iterator_traits<InIt>::value_type real;
@@ -92,7 +93,6 @@ struct LMean {
             return poissonLikelihood()(k, w_sum, w2_sum);
         }
 
-        T one(1);
         T zero(0);
         if(w_sum == zero) {
             if(k == 0) {
@@ -122,7 +122,6 @@ struct LMode {
 			return poissonLikelihood()(k, w_sum, w2_sum);
 		}
 
-		T one(1);
 		T zero(0);
 		if(w_sum == zero) {
 			if(k == 0) {
@@ -156,7 +155,6 @@ struct LEff {
             return poissonLikelihood()(k, w_sum, w2_sum);
         }
 
-        T one(1);
         T zero(0);
         if(w_sum == zero) {
             if(k == 0) {
@@ -188,33 +186,30 @@ DataType get_sigma2(std::vector<DataType> const & wi) {
 };
 
 struct computeLMean {
-    LMean likelihood;
     template<typename T>
     T operator()(unsigned int k, const std::vector<T>& wi) const{
         T mu = detail::get_mu(wi);
         T sigma2 = detail::get_sigma2(wi);
-        return likelihood(k, mu, sigma2);
+        return LMean()(k, mu, sigma2);
     }
 };
 
 struct computeLMode {
-    LMode likelihood;
     template<typename T>
     T operator()(unsigned int k, const std::vector<T>& wi) const{
         T mu = detail::get_mu(wi);
         T sigma2 = detail::get_sigma2(wi);
-        return likelihood(k, mu, sigma2);
+        return LMode()(k, mu, sigma2);
     }
 };
 
 struct computeLEff {
-    LMode likelihood;
     template<typename T>
     T operator()(unsigned int k, const std::vector<T>& wi) const{
         T mu = detail::get_mu(wi);
         T sigma2 = detail::get_sigma2(wi);
-        return likelihood(k, mu, sigma2);
+        return LEff()(k, mu, sigma2);
     }
 };
 
-} // namespace SAY
+} // namespace MCLLH
