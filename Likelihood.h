@@ -181,10 +181,40 @@ DataType get_mu(std::vector<DataType> const & wi) {
 };
 
 template<typename DataType>
-DataType get_mu2(std::vector<DataType> const & wi) {
+DataType get_sigma2(std::vector<DataType> const & wi) {
     std::vector<double> w2i(wi.size());
     std::transform(wi.begin(), wi.end(), w2i.begin(), [](double w)->double{return w*w;});
     return detail::accumulate(w2i.begin(), w2i.end());
+};
+
+struct computeLMean {
+    LMean likelihood;
+    template<typename T>
+    T operator()(unsigned int k, const std::vector<T>& wi) const{
+        T mu = detail::get_mu(wi);
+        T sigma2 = detail::get_sigma2(wi);
+        return likelihood(k, mu, sigma2);
+    }
+};
+
+struct computeLMode {
+    LMode likelihood;
+    template<typename T>
+    T operator()(unsigned int k, const std::vector<T>& wi) const{
+        T mu = detail::get_mu(wi);
+        T sigma2 = detail::get_sigma2(wi);
+        return likelihood(k, mu, sigma2);
+    }
+};
+
+struct computeLEff {
+    LMode likelihood;
+    template<typename T>
+    T operator()(unsigned int k, const std::vector<T>& wi) const{
+        T mu = detail::get_mu(wi);
+        T sigma2 = detail::get_sigma2(wi);
+        return likelihood(k, mu, sigma2);
+    }
 };
 
 } // namespace SAY
