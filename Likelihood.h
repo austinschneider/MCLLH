@@ -55,6 +55,8 @@ T LogOnePlusX(T x)
 	return x-x2/2.0+x3/3.0-x4/4.0;
 };
 
+} // namespace detail
+
 struct poissonLikelihood{
 	template <typename T>
 	T operator()(double dataCount, T const & lambda, T const & w2_sum) const{
@@ -73,9 +75,9 @@ struct gammaPriorPoissonLikelihood {
 		items[0] = alpha*log(beta);
 		items[1] = lgamma(k+alpha);
 		items[2] = -lgamma(k+1);
-		items[3] = -(k+alpha)*LogOnePlusX(beta);
+		items[3] = -(k+alpha)*detail::LogOnePlusX(beta);
 		items[4] = -lgamma(alpha);
-		return accumulate(items.begin(), items.end());
+		return detail::accumulate(items.begin(), items.end());
 	}
 };
 
@@ -209,7 +211,5 @@ struct pearsonChi2Likelihood {
         return(0.0);
     }
 };
-
-} // namespace detail
 
 } // namespace SAY
