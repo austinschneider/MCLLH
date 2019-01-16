@@ -166,7 +166,7 @@ def LEff(k, weight_sum, weight_sq_sum):
     L = gammaPriorPoissonLikelihood(k, alpha, beta)
     return L
 
-def computeLMean(weights):
+def computeLMean(k, weights):
     """Computes Log of the L_Mean Likelihood from a list of weights.
        This is the poisson likelihood with gamma distribution prior where the
        mean and variance are fixed to that of the weight distribution.
@@ -186,9 +186,9 @@ def computeLMean(weights):
     w = np.asarray(weights)
     weight_sum = np.sum(w)
     weight_sq_sum = np.sum(w*w)
-    return LMean(weight_sum, weight_sq_sum)
+    return LMean(k, weight_sum, weight_sq_sum)
 
-def computeLMode(weights):
+def computeLMode(k, weights):
     """Computes Log of the L_Mode Likelihood from a list of weights.
        This is the poisson likelihood with gamma distribution prior where the
        mode and variance are fixed to that of the weight distribution.
@@ -208,9 +208,9 @@ def computeLMode(weights):
     w = np.asarray(weights)
     weight_sum = np.sum(w)
     weight_sq_sum = np.sum(w*w)
-    return LMode(weight_sum, weight_sq_sum)
+    return LMode(k, weight_sum, weight_sq_sum)
 
-def computeLEff(weights):
+def computeLEff(k, weights):
     """Computes Log of the L_Eff Likelihood from a list of weights.
        This is the poisson likelihood, using a poisson distribution with
        rescaled rate parameter to describe the Monte Carlo expectation, and
@@ -232,5 +232,5 @@ def computeLEff(weights):
     w = np.asarray(weights)
     weight_sum = np.sum(w)
     weight_sq_sum = np.sum(w*w)
-    return LEff(weight_sum, weight_sq_sum)
+    return LEff(k, weight_sum, weight_sq_sum)
 
