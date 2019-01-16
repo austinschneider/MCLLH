@@ -133,7 +133,7 @@ def LEff(k, weight_sum, weight_sq_sum):
        This is the poisson likelihood, using a poisson distribution with
        rescaled rate parameter to describe the Monte Carlo expectation, and
        assuming a uniform prior on the rate parameter of the Monte Carlo.
-       This is the main result of the paper arXiv:XXXX.XXXX
+       This is the main result of the paper arXiv:1901.04645
 
     Parameters
     ----------
@@ -215,7 +215,7 @@ def computeLEff(weights):
        This is the poisson likelihood, using a poisson distribution with
        rescaled rate parameter to describe the Monte Carlo expectation, and
        assuming a uniform prior on the rate parameter of the Monte Carlo.
-       This is the main result of the paper arXiv:XXXX.XXXX
+       This is the main result of the paper arXiv:1901.04645
 
     Parameters
     ----------

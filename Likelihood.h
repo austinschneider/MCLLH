@@ -1,4 +1,4 @@
-// Implementations of the likelihoods defined in arXiv:XXXX.XXXX
+// Implementations of the likelihoods defined in arXiv:1901.04645
 
 #include <cmath>
 #include <vector>
