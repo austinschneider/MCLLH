@@ -4,6 +4,7 @@
 #include <vector>
 #include <numeric>
 #include <sstream>
+#include <algorithm>
 
 namespace MCLLH {
 namespace detail {
@@ -54,6 +55,18 @@ T LogOnePlusX(T x)
 	T x3 = x2*x;
 	T x4 = x3*x;
 	return x-x2/2.0+x3/3.0-x4/4.0;
+};
+
+template<typename DataType>
+DataType get_mu(std::vector<DataType> const & wi) {
+    return accumulate(wi.begin(), wi.end());
+};
+
+template<typename DataType>
+DataType get_sigma2(std::vector<DataType> const & wi) {
+    std::vector<double> w2i(wi.size());
+    std::transform(wi.begin(), wi.end(), w2i.begin(), [](double w)->double{return w*w;});
+    return accumulate(w2i.begin(), w2i.end());
 };
 
 } // namespace detail
@@ -173,17 +186,6 @@ struct LEff {
     }
 };
 
-template<typename DataType>
-DataType get_mu(std::vector<DataType> const & wi) {
-    return detail::accumulate(wi.begin(), wi.end());
-};
-
-template<typename DataType>
-DataType get_sigma2(std::vector<DataType> const & wi) {
-    std::vector<double> w2i(wi.size());
-    std::transform(wi.begin(), wi.end(), w2i.begin(), [](double w)->double{return w*w;});
-    return detail::accumulate(w2i.begin(), w2i.end());
-};
 
 struct computeLMean {
     template<typename T>
