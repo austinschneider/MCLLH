@@ -161,7 +161,7 @@ def LEff(k, weight_sum, weight_sq_sum):
     if weight_sq_sum == 0:
         return poissonLikelihood(k, weight_sum, weight_sq_sum)
 
-    alpha = np.power(weight_sum, 2.0) / weight_sq_sum
+    alpha = np.power(weight_sum, 2.0) / weight_sq_sum + 1.0
     beta = weight_sum / weight_sq_sum
     L = gammaPriorPoissonLikelihood(k, alpha, beta)
     return L
