@@ -355,11 +355,6 @@ footer p + p {
     float: none;
   }
 }
-@media print, screen and (max-width:580px) {
-  header p {
-    width: 30%;
-  }
-}
 @media print {
   header p.view a small:before {
     content: 'at http://github.com/';
